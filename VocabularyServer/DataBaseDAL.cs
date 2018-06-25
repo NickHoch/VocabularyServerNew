@@ -84,8 +84,7 @@ namespace DAL
         }
         public void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId)
         {
-            _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
-                                && newCardsStatuses.ContainsKey(x.Id))
+            _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId).Where(x => newCardsStatuses.ContainsKey(x.Id))
                       .ToList()
                       .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
             _ctx.SaveChanges();

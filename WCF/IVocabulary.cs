@@ -30,7 +30,7 @@ namespace WCF
         [OperationContract]
         ICollection<WordDC> GetNotLearnedWords(int quantityWords, int dictionaryId);
         [OperationContract]
-        void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId)
+        void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId);
         [OperationContract]
         void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId);
         [OperationContract]
