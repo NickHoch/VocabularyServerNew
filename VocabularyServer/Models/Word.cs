@@ -19,7 +19,7 @@ namespace DAL
         public byte[] Sound { get; set; }
         public byte[] Image { get; set; }
         public bool[] IsCardPassed { get; set; } = new bool[6];
-        public bool IsLearnedWord { get; set; }
+        public bool IsWordLearned { get; set; }
         [Required]
         public virtual DictionaryExtn Dictionary { get; set; }
     }

@@ -22,7 +22,9 @@ namespace WCF.DCs
         [DataMember]
         public byte[] Image { get; set; }
         [DataMember]
-        public bool IsLearnedWord { get; set; }
+        public bool IsWordLearned { get; set; }
+        [DataMember]
+        public bool[] IsCardPassed { get; set; }
         [DataMember]
         public DictionaryExtnDC Dictionary { get; set; }
     }

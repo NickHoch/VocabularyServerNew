@@ -123,6 +123,17 @@ namespace WCF
                 throw new FaultException(ex.ToString());
             }
         }
+        public void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId)
+        {
+            try
+            {
+                _bll.ChangeStatusCards(newCardsStatuses, dictionaryId);
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.ToString());
+            }
+        }
         public void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId)
         {
             try

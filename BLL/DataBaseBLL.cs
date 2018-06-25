@@ -75,6 +75,10 @@ namespace BLL
             listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDMtoDTO(x)));
             return listWordsDTO;
         }
+        public void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId)
+        {
+            _dal.ChangeStatusCards(newCardsStatuses, dictionaryId);
+        }
         public void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId)
         {
             _dal.SetToWordsStatusAsLearned(quantityWords, dictionaryId);

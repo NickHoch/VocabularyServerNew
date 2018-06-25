@@ -66,7 +66,7 @@ namespace DAL
                 word.WordEng = newWord.WordEng;
                 word.Transcription = newWord.Transcription;
                 word.Translation = newWord.Translation;
-                word.IsLearnedWord = newWord.IsLearnedWord;
+                word.IsWordLearned = newWord.IsWordLearned;
             }
             _ctx.SaveChanges();
         }
@@ -78,24 +78,32 @@ namespace DAL
         public List<Word> GetNotLearnedWords(int quantityWords, int dictionaryId)
         {
             return _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
-                                      && x.IsLearnedWord == false)
+                                      && x.IsWordLearned == false)
                              .Take(quantityWords)
                              .ToList();
+        }
+        public void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId)
+        {
+            _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
+                                && newCardsStatuses.ContainsKey(x.Id))
+                      .ToList()
+                      .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
+            _ctx.SaveChanges();
         }
         public void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId)
         {
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
-                                && x.IsLearnedWord == false)
+                                && x.IsWordLearned == false)
                       .Take(quantityWords)
                       .ToList()
-                      .ForEach(x => x.IsLearnedWord = true);
+                      .ForEach(x => x.IsWordLearned = true);
             _ctx.SaveChanges();
         }
         public void SetToWordsStatusAsUnlearned(int dictionaryId)
         {
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId)
                       .ToList()
-                      .ForEach(x => x.IsLearnedWord = false);
+                      .ForEach(x => x.IsWordLearned = false);
             _ctx.SaveChanges();
         }
         public void ChangeImage(int wordId, byte[] newImage)
