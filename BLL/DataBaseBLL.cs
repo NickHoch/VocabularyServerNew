@@ -10,9 +10,13 @@ using DAL.Models;
 
 namespace BLL
 {
-    public class DataBaseBLL
+    public class DataBaseBLL : IDataBaseBLL
     {
-        DataBaseDAL _dal = new DataBaseDAL();
+        DAL.IDataBaseDAL _dal;
+        public DataBaseBLL(DAL.IDataBaseDAL dal)
+        {
+            _dal = dal;
+        }
         public bool IsEmailAddressExists(string email)
         {
             return _dal.IsEmailAddressExists(email);

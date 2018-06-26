@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data.Entity;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -6,9 +7,13 @@ using DAL.Models;
 
 namespace DAL
 {
-    public class DataBaseDAL
+    public class DataBaseDAL : IDataBaseDAL
     {
-        public readonly VocabularyModel _ctx = new VocabularyModel();
+        public readonly VocabularyModel _ctx;
+        public DataBaseDAL(DbContext ctx)
+        {
+            _ctx = (VocabularyModel)ctx;
+        }
         public bool IsEmailAddressExists(string email)
         {
             return _ctx.Credentials.Any(x => x.Email == email);
