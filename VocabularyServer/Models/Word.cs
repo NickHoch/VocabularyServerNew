@@ -20,25 +20,24 @@ namespace DAL
         public byte[] Sound { get; set; }
         public byte[] Image { get; set; }
         [StringLength(6, MinimumLength = 6)]
-        private string IsCardPassedStr;
+        public string IsCardPassedStr { get; set; }
         public bool[] IsCardPassed
         {
             get
             {
                 return Array.ConvertAll<char, bool>(
                     IsCardPassedStr.ToCharArray(),
-                    new Converter<char, bool>(c => Convert.ToBoolean(int.Parse(c.ToString())))
-                    );
+                    new Converter<char, bool>(c => c == '1' ? true : false ));
             }
             set
             {
                 IsCardPassedStr = (Array.ConvertAll(
                     value,
-                    new Converter<bool, char>(v => v == true ? '1' : '0')
-                    )).Aggregate(" ", (a, b) => a + b);
+                    new Converter<bool, char>(b => b == true ? '1' : '0')
+                    )).Aggregate("", (a, b) => a + b);
             }
         }
-        public bool IsWordLearned { get; set; }
+        public bool IsWordLearned { get; set; } = false;
         [Required]
         public virtual DictionaryExtn Dictionary { get; set; }
     }

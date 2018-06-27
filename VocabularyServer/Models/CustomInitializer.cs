@@ -38,7 +38,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\cat.jpg"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\cat.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -48,7 +48,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\dog.jpg"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\dog.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -58,7 +58,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\bear.jpeg"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\bear.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -68,7 +68,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\penguin.png"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\penguin.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -78,7 +78,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\parrot.png"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\parrot.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -88,7 +88,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\donkey.jpg"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\donkey.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -98,7 +98,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\rat.png"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\rat.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -108,7 +108,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\mosquito.jpg"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\mosquito.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -118,7 +118,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\fox.png"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\fox.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 },
                 new Word
                 {
@@ -128,7 +128,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\ratel.jpg"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\ratel.mp3"),
-                    IsWordLearned = false
+                    IsCardPassedStr = "000000"
                 }
             };
             var serializer = new DataContractSerializer(typeof(Word[]),
