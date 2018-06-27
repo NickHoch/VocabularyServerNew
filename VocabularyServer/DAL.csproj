@@ -56,6 +56,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DataBaseDAL.cs" />
+    <Compile Include="IDataBaseDAL.cs" />
     <Compile Include="Models\Credential.cs" />
     <Compile Include="Models\CredentialExtn.cs" />
     <Compile Include="Models\CustomInitializer.cs" />
