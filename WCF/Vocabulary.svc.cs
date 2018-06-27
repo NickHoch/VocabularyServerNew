@@ -13,8 +13,8 @@ namespace WCF
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class Vocabulary : IVocabulary
     {
-        private IDataBaseDAL _bll;
-        public Vocabulary(IDataBaseDAL bll)
+        private IDataBaseBLL _bll;
+        public Vocabulary(IDataBaseBLL bll)
         {
             _bll = bll;
         }
