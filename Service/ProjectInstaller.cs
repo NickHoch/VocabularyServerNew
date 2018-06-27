@@ -21,7 +21,7 @@ namespace Microsoft.ServiceModel.Samples
             process.Account = ServiceAccount.LocalSystem;
             service = new ServiceInstaller();
             service.StartType = ServiceStartMode.Automatic;
-            service.ServiceName = "_VocabularyNT";
+            service.ServiceName = "_VocabularyService";
             Installers.Add(process);
             Installers.Add(service);
         }
