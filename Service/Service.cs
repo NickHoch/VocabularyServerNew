@@ -13,7 +13,7 @@ namespace Microsoft.ServiceModel.Samples
         public ServiceHost serviceHost = null;
         public VocabularyWindowsService()
         {
-            ServiceName = "_VocabularyNT";
+            ServiceName = "_VocabularyService";
         }
         public static void Main()
         {
