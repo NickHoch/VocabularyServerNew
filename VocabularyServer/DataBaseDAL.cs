@@ -84,13 +84,10 @@ namespace DAL
         }
         public void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId)
         {
-            var indexes = newCardsStatuses.Select(x => x.Key);
-            var words = _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId);
-            //var res = words.Join(newCardsStatuses, w => w.Id, i => i.Key, (word, statuses) => new { word.Id, word.IsCardPassed = statuses.Value, word.WordEng});
-            _ctx.Words.Where(x => newCardsStatuses.ContainsKey(x.Id)
-                        && x.Dictionary.Id == dictionaryId)
-                .ToList()
-                .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
+            _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
+                                            && newCardsStatuses.Keys.Contains(x.Id))
+                                  .ToList()
+                                  .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
             _ctx.SaveChanges();
         }
         public void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId)
