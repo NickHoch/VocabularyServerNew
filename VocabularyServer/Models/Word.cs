@@ -33,7 +33,7 @@ namespace DAL
                 IsCardPassedStr = (Array.ConvertAll(
                     value,
                     new Converter<bool, char>(v => v == true ? '1' : '0')
-                    )).Aggregate(" ", (a, b) => a + b);
+                    )).Aggregate("", (a, b) => a + b);
             }
         }
         public bool IsWordLearned { get; set; }
