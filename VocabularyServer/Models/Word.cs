@@ -1,10 +1,7 @@
 ﻿using DAL.Models;
 using System;
-using System.Linq;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
-using System.Xml.Serialization;
 
 namespace DAL
 {
@@ -22,20 +19,21 @@ namespace DAL
         public byte[] Image { get; set; }
         [StringLength(6, MinimumLength = 6)]
         public string IsCardPassedStr { get; set; }
+
         public bool[] IsCardPassed
         {
             get
             {
                 return Array.ConvertAll<char, bool>(
                     IsCardPassedStr.ToCharArray(),
-                    new Converter<char, bool>(c => c == '1' ? true : false ));
+                    new Converter<char, bool>(c => c == '1' ? true : false));
             }
             set
             {
                 IsCardPassedStr = (Array.ConvertAll(
                     value,
-                    new Converter<bool, char>(b => b == true ? '1' : '0')
-                    )).Aggregate("", (a, b) => a + b);
+                    new Converter<bool, char>(v => v == true ? '1' : '0')
+                    )).Aggregate(" ", (a, b) => a + b);
             }
         }
         public bool IsWordLearned { get; set; }
