@@ -93,7 +93,6 @@ namespace DAL
                                             && newCardsStatuses.Keys.Contains(x.Id))
                                   .ToList()
                                   .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
-
             _ctx.SaveChanges();
         }
         public void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId)
