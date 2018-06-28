@@ -83,9 +83,9 @@ namespace BLL
         {
             _dal.ChangeStatusCards(newCardsStatuses, dictionaryId);
         }
-        public void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId)
+        public void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId)
         {
-            _dal.SetToWordsStatusAsLearned(quantityWords, dictionaryId);
+            _dal.SetToWordsStatusAsLearned(wordsId, dictionaryId);
         }
         public void SetToWordsStatusAsUnlearned(int dictionaryId)
         {

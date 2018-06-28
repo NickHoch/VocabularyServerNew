@@ -138,11 +138,11 @@ namespace WCF
                 throw new FaultException(ex.ToString());
             }
         }
-        public void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId)
+        public void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId)
         {
             try
             {
-                _bll.SetToWordsStatusAsLearned(quantityWords, dictionaryId);
+                _bll.SetToWordsStatusAsLearned(wordsId, dictionaryId);
             }
             catch (Exception ex)
             {

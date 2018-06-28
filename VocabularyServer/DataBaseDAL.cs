@@ -95,11 +95,10 @@ namespace DAL
                                   .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
             _ctx.SaveChanges();
         }
-        public void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId)
+        public void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId)
         {
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
-                                && x.IsWordLearned == false)
-                      .Take(quantityWords)
+                                && wordsId.Contains(x.Id))
                       .ToList()
                       .ForEach(x => x.IsWordLearned = true);
             _ctx.SaveChanges();
@@ -108,7 +107,10 @@ namespace DAL
         {
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId)
                       .ToList()
-                      .ForEach(x => x.IsWordLearned = false);
+                      .ForEach(x => {
+                          x.IsWordLearned = false;
+                          x.IsCardPassed = new bool[6];
+                      });
             _ctx.SaveChanges();
         }
         public void ChangeImage(int wordId, byte[] newImage)

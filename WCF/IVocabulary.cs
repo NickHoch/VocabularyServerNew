@@ -32,7 +32,7 @@ namespace WCF
         [OperationContract]
         void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId);
         [OperationContract]
-        void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId);
+        void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         [OperationContract]
         void SetToWordsStatusAsUnlearned(int dictionaryId);
         [OperationContract]

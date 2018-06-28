@@ -19,7 +19,7 @@ namespace DAL
         void UpdateWord(Word newWord);
         List<Word> GetWords(int dictionaryId);
         List<Word> GetNotLearnedWords(int quantityWords, int dictionaryId);
-        void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId);
+        void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         void SetToWordsStatusAsUnlearned(int dictionaryId);
         void ChangeImage(int wordId, byte[] newImage);
         void ChangeSound(int wordId, byte[] newSound);

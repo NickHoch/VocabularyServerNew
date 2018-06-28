@@ -19,7 +19,6 @@ namespace DAL
         public byte[] Image { get; set; }
         [StringLength(6, MinimumLength = 6)]
         public string IsCardPassedStr { get; set; }
-
         public bool[] IsCardPassed
         {
             get

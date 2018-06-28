@@ -19,7 +19,7 @@ namespace BLL
         void UpdateWord(WordDTO wordDTO);
         List<WordDTO> GetWords(int dictionaryId);
         List<WordDTO> GetNotLearnedWords(int quantityWords, int dictionaryId);
-        void SetToWordsStatusAsLearned(int quantityWords, int dictionaryId);
+        void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         void SetToWordsStatusAsUnlearned(int dictionaryId);
         void ChangeImage(int wordId, byte[] newImage);
         void ChangeSound(int wordId, byte[] newSound);
