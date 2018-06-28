@@ -13,7 +13,11 @@ namespace WCF
     [ServiceBehavior(IncludeExceptionDetailInFaults = true)]
     public class Vocabulary : IVocabulary
     {
-        private DataBaseBLL _bll = new DataBaseBLL();
+        private IDataBaseBLL _bll;
+        public Vocabulary(IDataBaseBLL bll)
+        {
+            _bll = bll;
+        }
         public bool IsEmailAddressExists(string email)
         {
             try
