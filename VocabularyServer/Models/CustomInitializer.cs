@@ -108,7 +108,7 @@ namespace DAL
                     Dictionary = dict1,
                     Image = File.ReadAllBytes($@"{path}\Image\mosquito.jpg"),
                     Sound = File.ReadAllBytes($@"{path}\Sound\mosquito.mp3"),
-                    IsCardPassedStr = "000000"
+                    IsCardPassed = new bool[6]
                 },
                 new Word
                 {

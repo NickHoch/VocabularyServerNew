@@ -100,7 +100,11 @@ namespace DAL
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
                                 && wordsId.Contains(x.Id))
                       .ToList()
-                      .ForEach(x => x.IsWordLearned = true);
+                      .ForEach(x => 
+                      {
+                          x.IsWordLearned = true;
+                          x.IsCardPassedStr = "000000";
+                      });
             _ctx.SaveChanges();
         }
         public void SetToWordsStatusAsUnlearned(int dictionaryId)
