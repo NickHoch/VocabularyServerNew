@@ -127,7 +127,7 @@ namespace WCF
                 throw new FaultException(ex.ToString());
             }
         }
-        public void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId)
+        public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
         {
             try
             {

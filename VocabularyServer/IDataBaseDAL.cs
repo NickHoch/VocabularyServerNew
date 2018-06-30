@@ -29,7 +29,7 @@ namespace DAL
         DictionaryExtn GetDictionary(int dictionaryId);
         List<Dictionary> GetDictionariesBaseInfo(int userId);
         bool StartInitializeDictionary(DictionaryExtn dictionary);
-        void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId);
+        void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId);
 
     }
 }

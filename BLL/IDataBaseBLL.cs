@@ -27,6 +27,6 @@ namespace BLL
         void UpdateDictionary(int dictionaryId, string newDictionaryName);
         bool DeleteDictionary(int dictionaryId);
         List<DictionaryDTO> GetDictionariesBaseInfo(int userId);
-        void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId);
+        void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId);
     }
 }

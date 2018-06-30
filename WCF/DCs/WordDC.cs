@@ -24,7 +24,7 @@ namespace WCF.DCs
         [DataMember]
         public bool IsWordLearned { get; set; }
         [DataMember]
-        public bool[] IsCardPassed { get; set; }
+        public string IsCardPassed { get; set; }
         [DataMember]
         public DictionaryExtnDC Dictionary { get; set; }
     }

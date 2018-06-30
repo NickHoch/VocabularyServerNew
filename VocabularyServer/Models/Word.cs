@@ -18,24 +18,9 @@ namespace DAL
         public byte[] Sound { get; set; }
         public byte[] Image { get; set; }
         [StringLength(6, MinimumLength = 6)]
-        public string IsCardPassedStr { get; set; }
-        public bool[] IsCardPassed
-        {
-            get
-            {
-                return Array.ConvertAll<char, bool>(
-                    IsCardPassedStr.ToCharArray(),
-                    new Converter<char, bool>(c => c == '1' ? true : false));
-            }
-            set
-            {
-                IsCardPassedStr = (Array.ConvertAll(
-                    value,
-                    new Converter<bool, char>(v => v == true ? '1' : '0')
-                    )).Aggregate("", (a, b) => a + b);
-            }
-        }
+        public string IsCardPassed { get; set; }
         public bool IsWordLearned { get; set; }
+        public bool IsWordInProcessStuding { get; set; }
         [Required]
         public virtual DictionaryExtn Dictionary { get; set; }
     }

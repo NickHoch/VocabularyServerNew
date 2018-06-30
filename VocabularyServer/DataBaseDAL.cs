@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;
@@ -9,6 +10,8 @@ namespace DAL
 {
     public class DataBaseDAL : IDataBaseDAL
     {
+        public readonly string CardsIsNotLearned = "000000";
+        public readonly string CardsIsLearned = "111111";
         public readonly VocabularyModel _ctx;
         public DataBaseDAL(DbContext ctx)
         {
@@ -72,6 +75,14 @@ namespace DAL
                 word.Transcription = newWord.Transcription;
                 word.Translation = newWord.Translation;
                 word.IsWordLearned = newWord.IsWordLearned;
+                if(newWord.IsWordLearned == false)
+                {
+                    word.IsCardPassed = CardsIsNotLearned;
+                }
+                else
+                {
+                    word.IsCardPassed = CardsIsLearned;
+                }
             }
             _ctx.SaveChanges();
         }
@@ -82,25 +93,53 @@ namespace DAL
         }
         public List<Word> GetNotLearnedWords(int quantityWords, int dictionaryId)
         {
+            var isLearningProcessActive = _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId)
+                                                    .Any(x => x.IsWordInProcessStuding == true);
+            if (!isLearningProcessActive)
+            {
+                _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
+                                    && x.IsWordLearned == false)
+                        .Take(quantityWords)
+                        .ToList()
+                        .ForEach(x => x.IsWordInProcessStuding = true);
+                _ctx.SaveChanges();
+            }
             return _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
-                                      && x.IsWordLearned == false)
-                             .Take(quantityWords)
+                                        && x.IsWordInProcessStuding == true)
                              .ToList();
         }
-        public void ChangeStatusCards(Dictionary<int, bool[]> newCardsStatuses, int dictionaryId)
+        public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
         {
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
                                             && newCardsStatuses.Keys.Contains(x.Id))
                                   .ToList()
-                                  .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
+                                  .ForEach(x =>
+                                  {
+                                      x.IsCardPassed = newCardsStatuses[x.Id];
+                                      if (newCardsStatuses[x.Id] == CardsIsLearned)
+                                      {
+                                          x.IsWordLearned = true;
+                                      }
+                                  });
             _ctx.SaveChanges();
         }
+        //public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
+        //{
+        //    _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
+        //                                    && newCardsStatuses.Keys.Contains(x.Id))
+        //                          .ToList()
+        //                          .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
+        //    _ctx.SaveChanges();
+        //}
         public void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId)
         {
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
-                                && wordsId.Contains(x.Id))
-                      .ToList()
-                      .ForEach(x => x.IsWordLearned = true);
+                           && wordsId.Contains(x.Id))
+                 .ToList()
+                 .ForEach(x => {
+                    x.IsWordLearned = true;
+                    x.IsWordInProcessStuding = false;
+                 });
             _ctx.SaveChanges();
         }
         public void SetToWordsStatusAsUnlearned(int dictionaryId)
@@ -109,7 +148,7 @@ namespace DAL
                       .ToList()
                       .ForEach(x => {
                           x.IsWordLearned = false;
-                          x.IsCardPassed = new bool[6];
+                          x.IsCardPassed = CardsIsNotLearned;
                       });
             _ctx.SaveChanges();
         }
@@ -180,7 +219,8 @@ namespace DAL
                     Translation = "кіт",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\cat.jpg"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\cat.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\cat.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -189,7 +229,8 @@ namespace DAL
                     Translation = "пес",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\dog.jpg"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\dog.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\dog.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -198,7 +239,8 @@ namespace DAL
                     Translation = "ведмідь",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\bear.jpeg"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\bear.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\bear.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -207,7 +249,8 @@ namespace DAL
                     Translation = "пінгвін",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\penguin.png"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\penguin.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\penguin.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -216,7 +259,8 @@ namespace DAL
                     Translation = "папуга",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\parrot.png"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\parrot.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\parrot.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -225,7 +269,8 @@ namespace DAL
                     Translation = "осел",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\donkey.jpg"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\donkey.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\donkey.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -234,7 +279,8 @@ namespace DAL
                     Translation = "пацюк",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\rat.png"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\rat.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\rat.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -243,7 +289,8 @@ namespace DAL
                     Translation = "комар",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\mosquito.jpg"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\mosquito.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\mosquito.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -252,7 +299,8 @@ namespace DAL
                     Translation = "лисиця",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\fox.png"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\fox.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\fox.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 },
                 new Word
                 {
@@ -261,7 +309,8 @@ namespace DAL
                     Translation = "медоїд",
                     Dictionary = dictionary,
                     Image = File.ReadAllBytes($@"{path}\Image\ratel.jpg"),
-                    Sound = File.ReadAllBytes($@"{path}\Sound\ratel.mp3")
+                    Sound = File.ReadAllBytes($@"{path}\Sound\ratel.mp3"),
+                    IsCardPassed = CardsIsNotLearned
                 }
             });
             _ctx.SaveChanges();

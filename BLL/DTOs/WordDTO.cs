@@ -16,7 +16,7 @@ namespace BLL.DTOs
         public byte[] Sound { get; set; }
         public byte[] Image { get; set; }
         public bool IsWordLearned { get; set; }
-        public bool[] IsCardPassed { get; set; }
+        public string IsCardPassed { get; set; }
         public DictionaryDTO Dictionary { get; set; }
     }
 }
