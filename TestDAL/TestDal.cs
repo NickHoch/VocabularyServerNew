@@ -14,9 +14,13 @@ namespace TestDAL
         public void TestMethod1()
         {
             Mock<DbSet<Word>> DbWords = new Mock<DbSet<Word>>();
+            
             Mock<VocabularyModel> ctx = new Mock<VocabularyModel>();
+
             ctx.Setup(x => x.Words).Returns(DbWords.Object);
+
             DataBaseDAL dal = new DataBaseDAL(ctx.Object);
+
 
         }
     }
