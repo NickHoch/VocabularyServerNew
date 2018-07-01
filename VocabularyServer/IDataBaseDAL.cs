@@ -18,7 +18,7 @@ namespace DAL
         bool DeleteWord(int wordId);
         void UpdateWord(Word newWord);
         List<Word> GetWords(int dictionaryId);
-        List<Word> GetNotLearnedWords(int quantityWords, int dictionaryId);
+        List<Word> GetNotLearnedWords(int dictionaryId, int quantityWords = 0);
         void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         void SetToWordsStatusAsUnlearned(int dictionaryId);
         void ChangeImage(int wordId, byte[] newImage);

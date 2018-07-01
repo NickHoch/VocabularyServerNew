@@ -91,7 +91,7 @@ namespace DAL
             return _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId)
                              .ToList();
         }
-        public List<Word> GetNotLearnedWords(int quantityWords, int dictionaryId)
+        public List<Word> GetNotLearnedWords(int dictionaryId, int quantityWords = 0)
         {
             var isLearningProcessActive = _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId)
                                                     .Any(x => x.IsWordInProcessStuding == true);

@@ -72,10 +72,10 @@ namespace BLL
             listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDMtoDTO(x)));
             return listWordsDTO;
         }
-        public List<WordDTO> GetNotLearnedWords(int quantityWords, int dictionaryId)
+        public List<WordDTO> GetNotLearnedWords(int dictionaryId, int quantityWords = 0)
         {
             List<WordDTO> listWordsDTO = new List<WordDTO>();
-            var listWords = _dal.GetNotLearnedWords(quantityWords, dictionaryId);
+            var listWords = _dal.GetNotLearnedWords(dictionaryId, quantityWords);
             listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDMtoDTO(x)));
             return listWordsDTO;
         }

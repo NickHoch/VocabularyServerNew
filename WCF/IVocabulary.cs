@@ -28,7 +28,7 @@ namespace WCF
         [OperationContract]
         ICollection<WordDC> GetWords(int dictionaryId);
         [OperationContract]
-        ICollection<WordDC> GetNotLearnedWords(int quantityWords, int dictionaryId);
+        ICollection<WordDC> GetNotLearnedWords(int dictionaryId, int quantityWords = 0);
         [OperationContract]
         void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId);
         [OperationContract]

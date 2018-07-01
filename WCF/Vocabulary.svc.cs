@@ -113,12 +113,12 @@ namespace WCF
                 throw new FaultException(ex.ToString());
             }
         }
-        public ICollection<WordDC> GetNotLearnedWords(int quantityWords, int dictionaryId)
+        public ICollection<WordDC> GetNotLearnedWords(int dictionaryId, int quantityWords = 0)
         {
             try
             {
                 List<WordDC> listWordsDC = new List<WordDC>();
-                var listWordsDTO = _bll.GetNotLearnedWords(quantityWords, dictionaryId);
+                var listWordsDTO = _bll.GetNotLearnedWords(dictionaryId, quantityWords);
                 listWordsDTO.ForEach(x => listWordsDC.Add(MappingWord.MappingDTOtoDC(x)));
                 return listWordsDC;
             }
