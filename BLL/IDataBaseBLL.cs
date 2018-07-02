@@ -18,7 +18,10 @@ namespace BLL
         bool DeleteWord(int wordId);
         void UpdateWord(WordDTO wordDTO);
         List<WordDTO> GetWords(int dictionaryId);
-        List<WordDTO> GetNotLearnedWords(int dictionaryId, int quantityWords = 0);
+        List<WordDTO> GetNotLearnedWords(int userId);
+        List<WordDTO> GetNotLearnedWords(int dictionaryId, int quantityWords);
+        int GetQuantityUnlearnedWordsInDictionary(int dictionaryId);
+        int? IsLearningProcessActive(int userId);
         void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         void SetToWordsStatusAsUnlearned(int dictionaryId);
         void ChangeImage(int wordId, byte[] newImage);

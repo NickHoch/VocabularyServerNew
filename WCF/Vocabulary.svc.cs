@@ -113,7 +113,21 @@ namespace WCF
                 throw new FaultException(ex.ToString());
             }
         }
-        public ICollection<WordDC> GetNotLearnedWords(int dictionaryId, int quantityWords = 0)
+        public ICollection<WordDC> GetNotLearnedWordsByUserId(int userId)
+        {
+            try
+            {
+                List<WordDC> listWordsDC = new List<WordDC>();
+                var listWordsDTO = _bll.GetNotLearnedWords(userId);
+                listWordsDTO.ForEach(x => listWordsDC.Add(MappingWord.MappingDTOtoDC(x)));
+                return listWordsDC;
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.ToString());
+            }
+        }
+        public ICollection<WordDC> GetNotLearnedWords(int dictionaryId, int quantityWords)
         {
             try
             {
@@ -121,6 +135,21 @@ namespace WCF
                 var listWordsDTO = _bll.GetNotLearnedWords(dictionaryId, quantityWords);
                 listWordsDTO.ForEach(x => listWordsDC.Add(MappingWord.MappingDTOtoDC(x)));
                 return listWordsDC;
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.ToString());
+            }
+        }
+        public int GetQuantityUnlearnedWordsInDictionary(int dictionaryId)
+        {
+            return _bll.GetQuantityUnlearnedWordsInDictionary(dictionaryId);
+        }
+        public int? IsLearningProcessActive(int userId)
+        {
+            try
+            {
+                return _bll.IsLearningProcessActive(userId);
             }
             catch (Exception ex)
             {

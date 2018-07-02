@@ -91,7 +91,13 @@ namespace DAL
             return _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId)
                              .ToList();
         }
-        public List<Word> GetNotLearnedWords(int dictionaryId, int quantityWords = 0)
+        public List<Word> GetNotLearnedWords(int userId)
+        {
+            return _ctx.Words.Where(x => x.Dictionary.Credential.Id == userId 
+                                        && x.IsWordInProcessStuding == true)
+                             .ToList();
+        }
+        public List<Word> GetNotLearnedWords(int dictionaryId, int quantityWords)
         {
             var isLearningProcessActive = _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId)
                                                     .Any(x => x.IsWordInProcessStuding == true);
@@ -108,6 +114,21 @@ namespace DAL
                                         && x.IsWordInProcessStuding == true)
                              .ToList();
         }
+        public int GetQuantityUnlearnedWordsInDictionary(int dictionaryId)
+        {
+            return _ctx.Words.Count(x => x.Dictionary.Id == dictionaryId && x.IsWordLearned == false);
+        }
+        public int? IsLearningProcessActive(int userId)
+        {
+            var res = _ctx.Words.Any(x => x.Dictionary.Credential.Id == userId
+                                        && x.IsWordInProcessStuding == true);
+            if (res)
+            {
+                return _ctx.Words.FirstOrDefault(x => x.Dictionary.Credential.Id == userId
+                                                    && x.IsWordInProcessStuding == true).Dictionary.Id;
+            }
+            return null;
+        }
         public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
         {
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
@@ -123,14 +144,6 @@ namespace DAL
                                   });
             _ctx.SaveChanges();
         }
-        //public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
-        //{
-        //    _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId
-        //                                    && newCardsStatuses.Keys.Contains(x.Id))
-        //                          .ToList()
-        //                          .ForEach(x => x.IsCardPassed = newCardsStatuses[x.Id]);
-        //    _ctx.SaveChanges();
-        //}
         public void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId)
         {
             _ctx.Words.Where(x => x.Dictionary.Id == dictionaryId

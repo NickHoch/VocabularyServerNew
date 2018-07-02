@@ -72,12 +72,27 @@ namespace BLL
             listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDMtoDTO(x)));
             return listWordsDTO;
         }
-        public List<WordDTO> GetNotLearnedWords(int dictionaryId, int quantityWords = 0)
+        public List<WordDTO> GetNotLearnedWords(int userId)
+        {
+            List<WordDTO> listWordsDTO = new List<WordDTO>();
+            var listWords = _dal.GetNotLearnedWords(userId);
+            listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDMtoDTO(x)));
+            return listWordsDTO;
+        }
+        public List<WordDTO> GetNotLearnedWords(int dictionaryId, int quantityWords)
         {
             List<WordDTO> listWordsDTO = new List<WordDTO>();
             var listWords = _dal.GetNotLearnedWords(dictionaryId, quantityWords);
             listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDMtoDTO(x)));
             return listWordsDTO;
+        }
+        public int GetQuantityUnlearnedWordsInDictionary(int dictionaryId)
+        {
+            return _dal.GetQuantityUnlearnedWordsInDictionary(dictionaryId);
+        }
+        public int? IsLearningProcessActive(int userId)
+        {
+            return _dal.IsLearningProcessActive(userId);
         }
         public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
         {
