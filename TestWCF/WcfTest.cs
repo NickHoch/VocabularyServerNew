@@ -83,7 +83,7 @@ namespace TestWCF
         [TestMethod]
         public void GetUserIdByCredential1()
         {
-            mock.Setup(m => m.GetUserIdByCredential(new CredentialDTO { Email = "true", Password = "true" })).Returns(1);
+            mock.Setup(m => m.GetUserIdByCredential(It.IsAny<CredentialDTO>())).Returns(1);
             int? test = wcf.GetUserIdByCredential(new CredentialDC { Email = "true", Password = "true" });
             Assert.AreEqual(1, test);
         }
