@@ -289,5 +289,35 @@ namespace TestWCF
             wcf.UpdateDictionary(-5, null);
         }
 
+        [TestMethod]
+        public void DeleteDictionary1()
+        {
+            mock.Setup(m => m.DeleteDictionary(It.Is<int>(x => x > 0))).Returns(true);
+            Assert.IsTrue(wcf.DeleteDictionary(1));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void DeleteDictionary2()
+        {
+            mock.Setup(m => m.DeleteDictionary(It.Is<int>(x => x <= 0))).Throws(new Exception());
+            Assert.IsTrue(wcf.DeleteDictionary(0));
+        }
+
+        [TestMethod]
+        public void GetDictionariesBaseInfo1()
+        {
+            mock.Setup(m => m.GetDictionariesBaseInfo(It.Is<int>(x => x > 0))).Returns(new List<DictionaryDTO>());
+            Assert.IsTrue(wcf.GetDictionariesBaseInfo(1) is List<DictionaryDC>);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void GetDictionariesBaseInfo2()
+        {
+            mock.Setup(m => m.GetDictionariesBaseInfo(It.Is<int>(x => x <= 0))).Throws(new Exception());
+            wcf.GetDictionariesBaseInfo(10);
+        }
+
     }
 }
