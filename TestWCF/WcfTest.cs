@@ -184,5 +184,110 @@ namespace TestWCF
             Assert.AreEqual("true", test.Password);
         }
 
+        [TestMethod]
+        public void AddWord1()
+        {
+            mock.Setup(m => m.AddWord(It.IsAny<WordDTO>(), It.IsInRange(1, 10, Range.Inclusive))).Returns(true);
+            Assert.IsTrue(wcf.AddWord(new WordDC(), 5));
+        }
+
+        [TestMethod]
+        public void ChangeStatusCards1()
+        {
+            mock.Setup(m => m.ChangeStatusCards(It.IsAny <Dictionary<int, bool[]>>(), 1));
+            wcf.ChangeStatusCards(new Dictionary<int, bool[]>(), 1);
+        }
+
+        [TestMethod]
+        public void SetToWordsStatusAsLearned1()
+        {
+            mock.Setup(m => m.SetToWordsStatusAsLearned(It.IsAny<int>(), It.IsAny<int>()));
+            wcf.SetToWordsStatusAsLearned(1, 1);
+        }
+
+
+        [TestMethod]
+        public void SetToWordsStatusAsUnlearned1()
+        {
+            mock.Setup(m => m.SetToWordsStatusAsUnlearned(It.IsAny<int>()));
+            wcf.SetToWordsStatusAsUnlearned(1);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void SetToWordsStatusAsUnlearned2()
+        {
+            mock.Setup(m => m.SetToWordsStatusAsUnlearned(It.Is<int>(i=>i<=0))).Throws(new Exception());
+            wcf.SetToWordsStatusAsUnlearned(0);
+        }
+
+        [TestMethod]
+        public void ChangeImage1()
+        {
+            mock.Setup(m => m.ChangeImage(It.Is<int>(i => i > 0), It.IsAny<byte[]>()));
+            wcf.ChangeImage(1,new byte[1]);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void ChangeImage2()
+        {
+            mock.Setup(m => m.ChangeImage(It.Is<int>(i => i <= 0), It.IsAny<byte[]>())).Throws(new Exception());
+            wcf.ChangeImage(-5, new byte[1]);
+        }
+
+        [TestMethod]
+        public void ChangeSound1()
+        {
+            mock.Setup(m => m.ChangeImage(It.Is<int>(i => i > 0), It.IsAny<byte[]>()));
+            wcf.ChangeImage(1, new byte[1]);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void ChangeSound2()
+        {
+            mock.Setup(m => m.ChangeSound(It.Is<int>(i => i <= 0), It.IsAny<byte[]>())).Throws(new Exception());
+            wcf.ChangeSound(-5, new byte[1]);
+        }
+
+        [TestMethod]
+        public void AddDictionary1()
+        {
+            mock.Setup(m => m.AddDictionary(It.IsAny<DictionaryExtnDTO>(), It.Is<int>(x => x > 0))).Returns(true);
+            Assert.IsTrue(wcf.AddDictionary(new DictionaryExtnDC(), 1));
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void AddDictionary2()
+        {
+            mock.Setup(m => m.AddDictionary(It.IsAny<DictionaryExtnDTO>(), It.Is<int>(x => x <= 0))).Throws(new Exception());
+            wcf.AddDictionary(new DictionaryExtnDC(), 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void AddDictionary3()
+        {
+            mock.Setup(m => m.AddDictionary(It.Is<DictionaryExtnDTO>(x=>x.Words==null), It.Is<int>(x => x <= 0))).Throws(new Exception());
+            wcf.AddDictionary(null, 1);
+        }
+
+        [TestMethod]
+        public void UpdateDictionary1()
+        {
+            mock.Setup(m => m.UpdateDictionary(It.Is<int>(x => x > 0), It.Is<string>(x => x != null)));
+            wcf.UpdateDictionary(1,"");
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void UpdateDictionary2()
+        {
+            mock.Setup(m => m.UpdateDictionary(It.Is<int>(x => x <= 0), It.Is<string>(x => x == null))).Throws(new Exception());
+            wcf.UpdateDictionary(-5, null);
+        }
+
     }
 }
