@@ -13,8 +13,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Service", "Service\Service.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWCF", "TestWCF\TestWCF.csproj", "{70FA5B96-0A75-40C1-95BD-A72D388AC865}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestDAL", "TestDAL\TestDAL.csproj", "{EC72437F-7B81-4E71-AB35-45F8A0D6EA74}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,10 +39,6 @@ Global
 		{70FA5B96-0A75-40C1-95BD-A72D388AC865}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70FA5B96-0A75-40C1-95BD-A72D388AC865}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70FA5B96-0A75-40C1-95BD-A72D388AC865}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EC72437F-7B81-4E71-AB35-45F8A0D6EA74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EC72437F-7B81-4E71-AB35-45F8A0D6EA74}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EC72437F-7B81-4E71-AB35-45F8A0D6EA74}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EC72437F-7B81-4E71-AB35-45F8A0D6EA74}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
