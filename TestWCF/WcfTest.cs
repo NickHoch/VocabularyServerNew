@@ -8,6 +8,7 @@ using System.ServiceModel;
 using WCF;
 using WCF.Mapping;
 using WCF.DCs;
+using System.Collections.Generic;
 
 namespace TestWCF
 {
@@ -88,21 +89,84 @@ namespace TestWCF
             Assert.AreEqual(1, test);
         }
 
-        //[TestMethod]
-        //public void GetUserIdByCredential2()
-        //{
-        //    mock.Setup(m => m.GetUserIdByCredential(new CredentialDTO { Email = "true", Password = "false" })).Returns(1);
-        //    int? test = wcf.GetUserIdByCredential(new CredentialDC { Email = "true", Password = "true" });
-        //    Assert.AreEqual(1, test);
-        //}
+        [TestMethod]
+        public void AddUser1()
+        {
+            mock.Setup(m => m.AddUser(It.IsAny<CredentialExtnDTO>())).Returns(true);
+            Assert.IsTrue(wcf.AddUser(new CredentialExtnDC()));
+        }
 
+        [TestMethod]
+        public void DeleteWord1()
+        {
+            mock.Setup(m => m.DeleteWord(It.IsInRange<int>(0, 10, Range.Inclusive))).Returns(true);
+            Assert.IsTrue(wcf.DeleteWord(5));
+        }
 
-        //[TestMethod]
-        //[ExpectedException(typeof(FaultException))]
-        //public void GetUserIdByCredential3()
-        //{
-        //    wcf.GetUserIdByCredential(new CredentialDC() { Email ="" , Password=""});
-        //}
+        [TestMethod]
+        public void UpdateWord1()
+        {
+            wcf.UpdateWord(null);
+        }
+
+        [TestMethod]
+        public void UpdateWord2()
+        {
+            wcf.UpdateWord(new WordDC());
+        }
+
+        [TestMethod]
+        public void GetWords1()
+        {
+            mock.Setup(m => m.GetWords(It.IsInRange(1, 10, Range.Inclusive))).Returns(new List<WordDTO>());
+        
+            Assert.IsTrue(wcf.GetWords(1) is List<WordDC>);
+        }
+
+        [TestMethod]
+        public void GetWords2()
+        {
+            mock.Setup(m => m.GetWords(It.IsInRange(1, 10, Range.Inclusive))).Returns(new List<WordDTO> {new WordDTO()});
+
+            Assert.AreEqual(1,wcf.GetWords(1).Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void GetWords3()
+        {
+            List<WordDTO> temp = null;
+            mock.Setup(m => m.GetWords(It.IsInRange(1, 10, Range.Inclusive))).Returns(temp);
+            wcf.GetWords(1);
+        }
+
+        [TestMethod]
+        public void GetNotLearnedWords1()
+        {
+            mock.Setup(m => m.GetNotLearnedWords(It.IsInRange(1, 10,
+                Range.Inclusive),It.IsInRange(1, 10, Range.Inclusive))).Returns(new List<WordDTO>());
+
+            Assert.IsTrue(wcf.GetNotLearnedWords(1,1) is List<WordDC>);
+        }
+
+        [TestMethod]
+        public void GetNotLearnedWords2()
+        {
+            mock.Setup(m => m.GetNotLearnedWords(It.IsInRange(1, 10, Range.Inclusive),
+                It.IsInRange(1, 10, Range.Inclusive))).Returns(new List<WordDTO> { new WordDTO()});
+
+            Assert.AreEqual(1, wcf.GetNotLearnedWords(1,1).Count);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(FaultException))]
+        public void GetNotLearnedWords3()
+        {
+            List<WordDTO> temp = null;
+            mock.Setup(m => m.GetNotLearnedWords(It.IsInRange(1, 10, Range.Inclusive),
+                It.IsInRange(1, 10, Range.Inclusive))).Returns(temp);
+            wcf.GetNotLearnedWords(1,1);
+        }
 
         [TestMethod]
         public void MappingDCtoDTO1()
