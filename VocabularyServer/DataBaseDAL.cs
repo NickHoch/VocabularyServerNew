@@ -152,6 +152,7 @@ namespace DAL
                  .ForEach(x => {
                     x.IsWordLearned = true;
                     x.IsWordInProcessStuding = false;
+                    x.IsCardPassed = CardsIsLearned;
                  });
             _ctx.SaveChanges();
         }
@@ -161,6 +162,7 @@ namespace DAL
                       .ToList()
                       .ForEach(x => {
                           x.IsWordLearned = false;
+                          x.IsWordInProcessStuding = false;
                           x.IsCardPassed = CardsIsNotLearned;
                       });
             _ctx.SaveChanges();
