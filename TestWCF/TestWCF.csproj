@@ -62,6 +62,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BllTest.cs" />
     <Compile Include="WcfTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -72,6 +73,10 @@
     <ProjectReference Include="..\BLL\BLL.csproj">
       <Project>{8836E12D-EE3C-4767-BF40-E4520AEF42BE}</Project>
       <Name>BLL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\VocabularyServer\DAL.csproj">
+      <Project>{4C306283-8DF6-447F-B217-49C50CF00311}</Project>
+      <Name>DAL</Name>
     </ProjectReference>
     <ProjectReference Include="..\WCF\WCF.csproj">
       <Project>{24DF16EF-2697-4B50-8B77-95DA2874538C}</Project>
