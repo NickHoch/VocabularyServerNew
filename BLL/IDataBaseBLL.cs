@@ -20,10 +20,13 @@ namespace BLL
         List<WordDTO> GetWords(int dictionaryId);
         List<WordDTO> GetNotLearnedWords(int userId);
         List<WordDTO> GetNotLearnedWords(int dictionaryId, int quantityWords);
+        List<WordDTO> GetWordsToRepeat(int userId);
         int GetQuantityUnlearnedWordsInDictionary(int dictionaryId);
         int? IsLearningProcessActive(int userId);
+        void ChangeOutstandingWords(int userId);
         void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         void SetToWordsStatusAsUnlearned(int dictionaryId);
+        void SetToWordsStatusAsRepeated(int[] wordsId);
         void ChangeImage(int wordId, byte[] newImage);
         void ChangeSound(int wordId, byte[] newSound);
         bool AddDictionary(DictionaryExtnDTO dictionaryDTO, int userId);

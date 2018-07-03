@@ -32,15 +32,21 @@ namespace WCF
         [OperationContract]
         ICollection<WordDC> GetNotLearnedWords(int dictionaryId, int quantityWords);
         [OperationContract]
+        ICollection<WordDC> GetWordsToRepeat(int userId);
+        [OperationContract]
         int GetQuantityUnlearnedWordsInDictionary(int dictionaryId);
         [OperationContract]
         int? IsLearningProcessActive(int userId);
+        [OperationContract]
+        void ChangeOutstandingWords(int userId);
         [OperationContract]
         void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId);
         [OperationContract]
         void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         [OperationContract]
         void SetToWordsStatusAsUnlearned(int dictionaryId);
+        [OperationContract]
+        void SetToWordsStatusAsRepeated(int[] wordsId);
         [OperationContract]
         void ChangeImage(int wordId, byte[] newImage);
         [OperationContract]

@@ -15,6 +15,7 @@ namespace DAL
         protected override void Seed(VocabularyModel _ctx)
         {
             string path = Path.GetTempPath();
+            string defaultValues = "000000";
             #region
             CredentialExtn cred1 = new CredentialExtn
             {
@@ -28,7 +29,6 @@ namespace DAL
                 Credential = cred1
             };
             _ctx.Dictionaries.Add(dict1);
-            string defaultValues = "000000";
             Word[] words = new Word[]
             {
                 new Word

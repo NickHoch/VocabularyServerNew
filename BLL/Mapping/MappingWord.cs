@@ -27,7 +27,10 @@ namespace BLL.Mapping
         {
             var config = new MapperConfiguration(cfg =>
             {
-                cfg.CreateMap<WordDTO, Word>().ForMember("IsWordInProcessStuding", p => p.Ignore()).MaxDepth(2);
+                cfg.CreateMap<WordDTO, Word>().ForMember("IsWordInProcessStuding", p => p.Ignore())
+                                              .ForMember("TimeWordBecameLearned", p => p.Ignore())
+                                              .ForMember("IsWordRepeat", p => p.Ignore())
+                                              .MaxDepth(2);
                 cfg.CreateMap<DictionaryExtnDTO, DictionaryExtn>().MaxDepth(2);
             });
             config.AssertConfigurationIsValid();

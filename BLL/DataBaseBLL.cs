@@ -86,6 +86,13 @@ namespace BLL
             listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDMtoDTO(x)));
             return listWordsDTO;
         }
+        public List<WordDTO> GetWordsToRepeat(int userId)
+        {
+            List<WordDTO> listWordsDTO = new List<WordDTO>();
+            var listWords = _dal.GetWordsToRepeat(userId);
+            listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDMtoDTO(x)));
+            return listWordsDTO;
+        }
         public int GetQuantityUnlearnedWordsInDictionary(int dictionaryId)
         {
             return _dal.GetQuantityUnlearnedWordsInDictionary(dictionaryId);
@@ -93,6 +100,10 @@ namespace BLL
         public int? IsLearningProcessActive(int userId)
         {
             return _dal.IsLearningProcessActive(userId);
+        }
+        public void ChangeOutstandingWords(int userId)
+        {
+            _dal.ChangeOutstandingWords(userId);
         }
         public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
         {
@@ -105,6 +116,10 @@ namespace BLL
         public void SetToWordsStatusAsUnlearned(int dictionaryId)
         {
             _dal.SetToWordsStatusAsUnlearned(dictionaryId);
+        }
+        public void SetToWordsStatusAsRepeated(int[] wordsId)
+        {
+            _dal.SetToWordsStatusAsRepeated(wordsId);
         }
         public void ChangeImage(int wordId, byte[] newImage)
         {

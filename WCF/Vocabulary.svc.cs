@@ -141,6 +141,20 @@ namespace WCF
                 throw new FaultException(ex.ToString());
             }
         }
+        public ICollection<WordDC> GetWordsToRepeat(int userId)
+        {
+            try
+            {
+                List<WordDC> listWordsDTO = new List<WordDC>();
+                var listWords = _bll.GetWordsToRepeat(userId);
+                listWords.ForEach(x => listWordsDTO.Add(MappingWord.MappingDTOtoDC(x)));
+                return listWordsDTO;
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.ToString());
+            }
+        }
         public int GetQuantityUnlearnedWordsInDictionary(int dictionaryId)
         {
             return _bll.GetQuantityUnlearnedWordsInDictionary(dictionaryId);
@@ -150,6 +164,17 @@ namespace WCF
             try
             {
                 return _bll.IsLearningProcessActive(userId);
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.ToString());
+            }
+        }
+        public void ChangeOutstandingWords(int userId)
+        {
+            try
+            {
+                _bll.ChangeOutstandingWords(userId);
             }
             catch (Exception ex)
             {
@@ -183,6 +208,17 @@ namespace WCF
             try
             {
                 _bll.SetToWordsStatusAsUnlearned(dictionaryId);
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.ToString());
+            }
+        }
+        public void SetToWordsStatusAsRepeated(int[] wordsId)
+        {
+            try
+            {
+                _bll.SetToWordsStatusAsRepeated(wordsId);
             }
             catch (Exception ex)
             {

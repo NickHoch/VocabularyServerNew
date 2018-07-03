@@ -20,10 +20,13 @@ namespace DAL
         List<Word> GetWords(int dictionaryId);
         List<Word> GetNotLearnedWords(int userId);
         List<Word> GetNotLearnedWords(int dictionaryId, int quantityWords);
+        List<Word> GetWordsToRepeat(int userId);
         int GetQuantityUnlearnedWordsInDictionary(int dictionaryId);
         int? IsLearningProcessActive(int userId);
+        void ChangeOutstandingWords(int userId);
         void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         void SetToWordsStatusAsUnlearned(int dictionaryId);
+        void SetToWordsStatusAsRepeated(int[] wordsId);
         void ChangeImage(int wordId, byte[] newImage);
         void ChangeSound(int wordId, byte[] newSound);
         bool AddDictionary(DictionaryExtn dictionary);

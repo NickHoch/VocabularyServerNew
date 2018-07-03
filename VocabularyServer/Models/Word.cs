@@ -1,6 +1,7 @@
 ﻿using DAL.Models;
 using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
 namespace DAL
@@ -21,6 +22,9 @@ namespace DAL
         public string IsCardPassed { get; set; }
         public bool IsWordLearned { get; set; }
         public bool IsWordInProcessStuding { get; set; }
+        public bool IsWordRepeat { get; set; }
+        [Column(TypeName = "datetime2")]
+        public DateTime TimeWordBecameLearned { get; set; }
         [Required]
         public virtual DictionaryExtn Dictionary { get; set; }
     }

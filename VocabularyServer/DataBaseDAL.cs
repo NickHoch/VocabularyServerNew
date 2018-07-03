@@ -26,6 +26,7 @@ namespace DAL
             return _ctx.Dictionaries.Any(x => x.Credential.Id == userId
                                            && x.Name == dictionaryName);
         }
+
         public int? GetUserIdByCredential(Credential credential)
         {
             var cred = _ctx.Credentials.Where(x => x.Email == credential.Email && x.Password == credential.Password)
@@ -78,10 +79,14 @@ namespace DAL
                 if(newWord.IsWordLearned == false)
                 {
                     word.IsCardPassed = CardsIsNotLearned;
+                    word.TimeWordBecameLearned = default(DateTime);
+                    word.IsWordRepeat = false;
                 }
                 else
                 {
                     word.IsCardPassed = CardsIsLearned;
+                    word.TimeWordBecameLearned = DateTime.Now;
+                    word.IsWordRepeat = true;
                 }
             }
             _ctx.SaveChanges();
@@ -114,6 +119,13 @@ namespace DAL
                                         && x.IsWordInProcessStuding == true)
                              .ToList();
         }
+        public List<Word> GetWordsToRepeat(int userId) // chnage minutes to days
+        {
+            return _ctx.Words.Where(x => x.Dictionary.Credential.Id == userId
+                                        && (DateTime.Now - x.TimeWordBecameLearned).Minutes > 1
+                                        && (DateTime.Now - x.TimeWordBecameLearned).Minutes < 2)
+                             .ToList();
+        }
         public int GetQuantityUnlearnedWordsInDictionary(int dictionaryId)
         {
             return _ctx.Words.Count(x => x.Dictionary.Id == dictionaryId && x.IsWordLearned == false);
@@ -128,6 +140,21 @@ namespace DAL
                                                     && x.IsWordInProcessStuding == true).Dictionary.Id;
             }
             return null;
+        }
+        public void ChangeOutstandingWords(int userId)
+        {
+            _ctx.Words.Where(x => x.Dictionary.Credential.Id == userId
+                                && (DateTime.Now - x.TimeWordBecameLearned).Days > 2)
+                      .ToList()
+                      .ForEach(x =>
+                      {
+                          x.IsCardPassed = CardsIsNotLearned;
+                          x.IsWordLearned = false;
+                          x.IsWordInProcessStuding = false;
+                          x.IsWordRepeat = false;
+                          x.TimeWordBecameLearned = default(DateTime);
+                      });
+            _ctx.SaveChanges();
         }
         public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
         {
@@ -150,9 +177,11 @@ namespace DAL
                            && wordsId.Contains(x.Id))
                  .ToList()
                  .ForEach(x => {
-                    x.IsWordLearned = true;
-                    x.IsWordInProcessStuding = false;
-                    x.IsCardPassed = CardsIsLearned;
+                     x.IsWordLearned = true;
+                     x.IsCardPassed = CardsIsLearned;
+                     x.IsWordInProcessStuding = false;
+                     x.IsWordRepeat = true;
+                     x.TimeWordBecameLearned = DateTime.Now;
                  });
             _ctx.SaveChanges();
         }
@@ -162,8 +191,21 @@ namespace DAL
                       .ToList()
                       .ForEach(x => {
                           x.IsWordLearned = false;
-                          x.IsWordInProcessStuding = false;
                           x.IsCardPassed = CardsIsNotLearned;
+                          x.IsWordInProcessStuding = false;
+                          x.IsWordRepeat = false;
+                          x.TimeWordBecameLearned = default(DateTime);
+                      });
+            _ctx.SaveChanges();
+        }
+        public void SetToWordsStatusAsRepeated(int[] wordsId)
+        {
+            _ctx.Words.Where(x => wordsId.Contains(x.Id))
+                      .ToList()
+                      .ForEach(x =>
+                      {
+                          x.IsWordRepeat = true;
+                          x.TimeWordBecameLearned = DateTime.Now;
                       });
             _ctx.SaveChanges();
         }
