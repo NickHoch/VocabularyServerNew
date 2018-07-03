@@ -194,15 +194,15 @@ namespace TestWCF
         [TestMethod]
         public void ChangeStatusCards1()
         {
-            mock.Setup(m => m.ChangeStatusCards(It.IsAny <Dictionary<int, bool[]>>(), 1));
-            wcf.ChangeStatusCards(new Dictionary<int, bool[]>(), 1);
+            mock.Setup(m => m.ChangeStatusCards(It.IsAny <Dictionary<int, string>>(), 1));
+            wcf.ChangeStatusCards(new Dictionary<int, string>(), 1);
         }
 
         [TestMethod]
         public void SetToWordsStatusAsLearned1()
         {
-            mock.Setup(m => m.SetToWordsStatusAsLearned(It.IsAny<int>(), It.IsAny<int>()));
-            wcf.SetToWordsStatusAsLearned(1, 1);
+            mock.Setup(m => m.SetToWordsStatusAsLearned(It.IsAny<int[]>(), It.IsAny<int>()));
+            wcf.SetToWordsStatusAsLearned(new int[1], 1);
         }
 
 
