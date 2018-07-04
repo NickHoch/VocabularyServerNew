@@ -121,9 +121,13 @@ namespace DAL
         }
         public List<Word> GetWordsToRepeat(int userId) // chnage minutes to days
         {
-            return _ctx.Words.Where(x => x.Dictionary.Credential.Id == userId
-                                        && (DateTime.Now - x.TimeWordBecameLearned).Minutes > 1
-                                        && (DateTime.Now - x.TimeWordBecameLearned).Minutes < 2)
+            return _ctx
+                .Words
+                .Select(z => z)
+                .Where(x => x.Dictionary.Credential.Id == userId
+                                        && DbFunctions.DiffMinutes(DateTime.Now, x.TimeWordBecameLearned) > 0
+                                        && DbFunctions.DiffMinutes(DateTime.Now, x.TimeWordBecameLearned) < 30)
+                                        .Select(y => y)
                              .ToList();
         }
         public int GetQuantityUnlearnedWordsInDictionary(int dictionaryId)
@@ -143,10 +147,10 @@ namespace DAL
         }
         public void ChangeOutstandingWords(int userId)
         {
-            _ctx.Words.Where(x => x.Dictionary.Credential.Id == userId
-                                && (DateTime.Now - x.TimeWordBecameLearned).Days > 2)
-                      .ToList()
-                      .ForEach(x =>
+            var res = _ctx.Words.Where(x => x.Dictionary.Credential.Id == userId
+                                && DbFunctions.DiffDays(DateTime.Now, x.TimeWordBecameLearned) > 2)
+                      .ToList();
+                      res.ForEach(x =>
                       {
                           x.IsCardPassed = CardsIsNotLearned;
                           x.IsWordLearned = false;
@@ -180,7 +184,6 @@ namespace DAL
                      x.IsWordLearned = true;
                      x.IsCardPassed = CardsIsLearned;
                      x.IsWordInProcessStuding = false;
-                     x.IsWordRepeat = true;
                      x.TimeWordBecameLearned = DateTime.Now;
                  });
             _ctx.SaveChanges();
