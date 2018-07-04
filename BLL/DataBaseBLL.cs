@@ -105,9 +105,13 @@ namespace BLL
         {
             _dal.ChangeOutstandingWords(userId);
         }
-        public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
+        public void ChangeCardsStatuses(Dictionary<int, string> newCardsStatuses)
         {
-            _dal.ChangeStatusCards(newCardsStatuses, dictionaryId);
+            _dal.ChangeCardsStatuses(newCardsStatuses);
+        }
+        public void ChangeCardsStatusesRepeat(Dictionary<int, string> newCardsStatuses)
+        {
+            _dal.ChangeCardsStatusesRepeat(newCardsStatuses);
         }
         public void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId)
         {

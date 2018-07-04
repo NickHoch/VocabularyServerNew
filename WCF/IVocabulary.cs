@@ -40,7 +40,9 @@ namespace WCF
         [OperationContract]
         void ChangeOutstandingWords(int userId);
         [OperationContract]
-        void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId);
+        void ChangeCardsStatuses(Dictionary<int, string> newCardsStatuses);
+        [OperationContract]
+        void ChangeCardsStatusesRepeat(Dictionary<int, string> newCardsStatuses);
         [OperationContract]
         void SetToWordsStatusAsLearned(int[] wordsId, int dictionaryId);
         [OperationContract]

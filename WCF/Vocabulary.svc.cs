@@ -181,11 +181,22 @@ namespace WCF
                 throw new FaultException(ex.ToString());
             }
         }
-        public void ChangeStatusCards(Dictionary<int, string> newCardsStatuses, int dictionaryId)
+        public void ChangeCardsStatuses(Dictionary<int, string> newCardsStatuses)
         {
             try
             {
-                _bll.ChangeStatusCards(newCardsStatuses, dictionaryId);
+                _bll.ChangeCardsStatuses(newCardsStatuses);
+            }
+            catch (Exception ex)
+            {
+                throw new FaultException(ex.ToString());
+            }
+        }
+        public void ChangeCardsStatusesRepeat(Dictionary<int, string> newCardsStatuses)
+        {
+            try
+            {
+                _bll.ChangeCardsStatusesRepeat(newCardsStatuses);
             }
             catch (Exception ex)
             {
