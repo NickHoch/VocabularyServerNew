@@ -194,8 +194,8 @@ namespace TestWCF
         [TestMethod]
         public void ChangeStatusCards1()
         {
-            mock.Setup(m => m.ChangeStatusCards(It.IsAny <Dictionary<int, string>>(), 1));
-            wcf.ChangeStatusCards(new Dictionary<int, string>(), 1);
+            mock.Setup(m => m.ChangeCardsStatuses(It.IsAny <Dictionary<int, string>>()));
+            wcf.ChangeCardsStatuses(new Dictionary<int, string>());
         }
 
         [TestMethod]
